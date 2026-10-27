@@ -1,0 +1,853 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>عيادة المروج</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=Readex+Pro:wght@500;600&display=swap">
+<style>
+/* Layout: a right-hand rail with four sections beside one working column; bottom tab bar on phones.
+   Palette: glass-teal on cool paper, amber for waiting, red for debts. Type: Readex Pro for headings and figures, IBM Plex Sans Arabic for text. */
+:root{
+  --bg:#EDF3F2; --surface:#FFFFFF; --surface-2:#E3ECEB; --line:#D0DCDA;
+  --fg:#0F2729; --fg-2:#476063;
+  --accent:#0A6B6C; --on-accent:#FFFFFF; --accent-soft:#D3EBE8; --accent-ink:#064B4C;
+  --good:#23764A; --good-soft:#DCEFE3;
+  --warn:#94590A; --warn-soft:#FAEBCE;
+  --bad:#B0352A; --bad-soft:#F8DEDA;
+  --exp:#9DB2B0;
+  --f-display:'Readex Pro','IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+  --f-body:'IBM Plex Sans Arabic','Segoe UI',Tahoma,system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1819; --surface:#132426; --surface-2:#1B3033; --line:#28403F;
+    --fg:#E4EFEE; --fg-2:#9DB5B4;
+    --accent:#4FC3BE; --on-accent:#062B2B; --accent-soft:#17393A; --accent-ink:#A3E6E1;
+    --good:#6CCB91; --good-soft:#17352A;
+    --warn:#E8B357; --warn-soft:#3A2E14;
+    --bad:#F08A7E; --bad-soft:#3D1E1B;
+    --exp:#5B7A79;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1819; --surface:#132426; --surface-2:#1B3033; --line:#28403F;
+  --fg:#E4EFEE; --fg-2:#9DB5B4;
+  --accent:#4FC3BE; --on-accent:#062B2B; --accent-soft:#17393A; --accent-ink:#A3E6E1;
+  --good:#6CCB91; --good-soft:#17352A;
+  --warn:#E8B357; --warn-soft:#3A2E14;
+  --bad:#F08A7E; --bad-soft:#3D1E1B;
+  --exp:#5B7A79;
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:400 15px/1.65 var(--f-body);-webkit-text-size-adjust:100%}
+body.lock{overflow:hidden}
+h1,h2,h3,p,dl,dd,ul{margin:0}
+ul{padding:0;list-style:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.num{unicode-bidi:isolate;direction:ltr;font-variant-numeric:tabular-nums}
+.cur{font-size:.8em;opacity:.75;margin-inline-start:2px}
+.muted{color:var(--fg-2)}
+h1{font:600 27px/1.25 var(--f-display);text-wrap:balance}
+h2{font:600 17px/1.3 var(--f-display)}
+
+/* shell */
+.app{max-width:1200px;margin:0 auto;padding-block:20px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;grid-template-columns:236px minmax(0,1fr);gap:36px;align-items:start}
+.side{position:sticky;top:20px;display:grid;gap:26px}
+.main{min-width:0}
+.mhead{display:none;align-items:center;gap:12px}
+.brand{display:flex;align-items:center;gap:12px}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;font:600 23px/1 var(--f-display);flex:none}
+.brand b{display:block;font:600 17px/1.25 var(--f-display)}
+.brand span{font-size:12.5px;color:var(--fg-2)}
+.nav{display:grid;gap:4px}
+.nav button{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border:0;border-radius:10px;background:none;color:var(--fg-2);font-weight:500;text-align:start}
+.nav button svg{flex:none}
+.nav button:hover{background:var(--surface-2);color:var(--fg)}
+.nav button[aria-current="page"]{background:var(--accent-soft);color:var(--accent-ink)}
+.doc{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface);font-size:13px;line-height:1.5}
+.doc .av{width:38px;height:38px;font-size:13px}
+.doc b{display:block;font-size:14px}
+.hours{font-size:12.5px;color:var(--fg-2);padding-inline:4px}
+.tabbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);gap:4px;padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tabbar button{flex:1;display:grid;justify-items:center;gap:2px;padding:6px 0;border:0;background:none;color:var(--fg-2);font-size:11.5px;font-weight:500;border-radius:10px}
+.tabbar button[aria-current="page"]{color:var(--accent-ink);background:var(--accent-soft)}
+
+/* page parts */
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.sub{color:var(--fg-2);font-size:14px}
+.pacts{display:flex;gap:8px;flex-wrap:wrap}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.sec-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px 12px}
+.cols{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:20px}
+.cols.fin{grid-template-columns:minmax(0,1.7fr) minmax(0,1fr)}
+.stack{display:grid;gap:20px}
+.empty{padding:28px 18px;color:var(--fg-2);text-align:center}
+.more{padding:14px;display:flex;justify-content:center;border-top:1px solid var(--line)}
+.list>li+li{border-top:1px solid var(--line)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--fg);font-weight:500;white-space:nowrap}
+.btn:hover{background:var(--surface-2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.sm{min-height:34px;padding:0 12px;font-size:13.5px;border-radius:9px}
+.btn.ghost{border-color:transparent;background:none;color:var(--fg-2)}
+.btn.ghost:hover{background:var(--surface-2);color:var(--fg)}
+.link{background:none;border:0;padding:0;font-weight:600;text-align:start;color:var(--fg)}
+.link:hover{color:var(--accent);text-decoration:underline}
+.back{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:4px 0;margin-bottom:12px;color:var(--fg-2);font-weight:500}
+.back:hover{color:var(--accent)}
+
+.pill{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font-size:12.5px;font-weight:500;white-space:nowrap}
+.st-booked{background:var(--accent-soft);color:var(--accent-ink)}
+.st-waiting{background:var(--warn-soft);color:var(--warn)}
+.st-done{background:var(--good-soft);color:var(--good)}
+.st-bad{background:var(--bad-soft);color:var(--bad)}
+.st-cancelled,.neutral{background:var(--surface-2);color:var(--fg-2)}
+.av{width:44px;height:44px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font:600 14px/1 var(--f-display);flex:none}
+
+/* summary strip */
+.strip{display:grid;grid-template-columns:repeat(4,1fr)}
+.strip>div{padding:16px 20px;display:grid;gap:2px;border-inline-start:1px solid var(--line)}
+.strip>div:first-child{border-inline-start:0}
+.strip .k{font-size:13px;color:var(--fg-2)}
+.strip .v{font:600 26px/1.3 var(--f-display)}
+.strip .v.good{color:var(--good)}
+.strip .v.bad{color:var(--bad)}
+
+/* appointments */
+.appt{display:grid;grid-template-columns:64px minmax(0,1fr) auto auto;grid-template-areas:"t b s a";gap:6px 14px;align-items:center;padding:12px 18px}
+.appt .at{grid-area:t;display:grid;justify-items:start;line-height:1.2}
+.appt .at b{font:600 18px/1.2 var(--f-display)}
+.appt .at small{font-size:12px;color:var(--fg-2)}
+.appt .ab{grid-area:b;display:grid;min-width:0}
+.appt .ab .reason{font-size:13px;color:var(--fg-2)}
+.appt .as{grid-area:s}
+.appt .aa{grid-area:a;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
+.appt.waiting{background:var(--warn-soft)}
+.appt.cancelled .link{text-decoration:line-through;color:var(--fg-2)}
+.appt.free{padding-block:8px;grid-template-areas:"t f";grid-template-columns:64px minmax(0,1fr)}
+.slot{grid-area:f;min-height:40px;border:1px dashed var(--line);border-radius:10px;background:none;color:var(--fg-2);text-align:start;padding:0 14px}
+.slot:hover{border-color:var(--accent);color:var(--accent)}
+.days{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:16px}
+.day{flex:none;min-width:72px;display:grid;justify-items:center;gap:0;padding:8px 6px;border:1px solid var(--line);border-radius:12px;background:var(--surface);line-height:1.35}
+.day span{font-size:12.5px;color:var(--fg-2)}
+.day b{font:600 20px/1.3 var(--f-display)}
+.day small{font-size:11.5px;color:var(--fg-2)}
+.day[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.day[aria-pressed="true"] span,.day[aria-pressed="true"] small{color:var(--on-accent);opacity:.85}
+
+/* patients */
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line)}
+.search{position:relative;flex:1 1 260px;min-width:0}
+.search svg{position:absolute;top:50%;inset-inline-start:12px;transform:translateY(-50%);color:var(--fg-2)}
+.search input{width:100%;height:42px;padding-inline:40px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chipb{height:34px;padding:0 14px;border:1px solid var(--line);border-radius:999px;background:none;font-size:13.5px;color:var(--fg-2)}
+.chipb[aria-pressed="true"]{background:var(--accent-soft);border-color:transparent;color:var(--accent-ink);font-weight:600}
+.prow{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 14px;align-items:center;width:100%;padding:12px 16px;background:none;border:0;text-align:start}
+.prow:hover{background:var(--surface-2)}
+.pb{display:grid;min-width:0}
+.pn{font-weight:600}
+.pm{font-size:13px;color:var(--fg-2)}
+.pr{display:grid;justify-items:end;gap:4px;font-size:13px;color:var(--fg-2)}
+
+/* profile */
+.phead{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:20px}
+.phead .av{width:64px;height:64px;font-size:20px}
+.phead .pi{display:grid;gap:2px;min-width:0}
+.phead .pacts{margin-inline-start:auto}
+.prof{display:grid;grid-template-columns:320px minmax(0,1fr);gap:20px;align-items:start;margin-top:20px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px 12px;align-items:start}
+.kv dt{color:var(--fg-2);font-size:13.5px}
+.kv.pad{padding:4px 18px 18px}
+.chip{display:inline-flex;padding:1px 10px;border-radius:8px;font-size:13px;font-weight:500;margin:0 0 4px 4px}
+.chip.bad{background:var(--bad-soft);color:var(--bad)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.acc-act{padding:0 18px 18px}
+.bal{color:var(--bad);font-weight:600}
+.tl{display:grid;gap:14px}
+.visit{padding:16px 18px;display:grid;gap:12px}
+.vh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.vc{display:flex;gap:6px;flex-wrap:wrap}
+.vacc{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+/* finance */
+.chart{padding:4px 18px 16px}
+.plot{position:relative;height:220px;margin-top:22px}
+.gl{position:absolute;left:0;right:0;height:0;border-top:1px solid var(--line)}
+.gl span{position:absolute;right:0;bottom:3px;font-size:11px;color:var(--fg-2)}
+.bars{position:absolute;top:0;bottom:0;left:0;right:48px;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:100%;z-index:1}
+.grp{display:flex;align-items:flex-end;justify-content:center;gap:5px;height:100%}
+.bar{position:relative;width:min(26px,38%);min-height:2px;border-radius:5px 5px 0 0}
+.bar.rev{background:var(--accent)}
+.bar.exp{background:var(--exp)}
+.bar i{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:3px;font-style:normal;font-size:10.5px;color:var(--fg-2);white-space:nowrap}
+.months{display:grid;grid-template-columns:repeat(6,1fr);margin-right:48px;margin-top:8px;text-align:center;font-size:12.5px;color:var(--fg-2)}
+.months .cur-m{color:var(--fg);font-weight:600}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--fg-2);padding:0 18px 16px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.sw.rev{background:var(--accent)}
+.sw.exp{background:var(--exp)}
+.inv{display:grid;grid-template-columns:104px minmax(0,1fr) 120px 150px auto;grid-template-areas:"d p a s b";gap:6px 12px;align-items:center;padding:12px 18px}
+.inv .iv-d{grid-area:d;font-size:13px;color:var(--fg-2)}
+.inv .iv-p{grid-area:p;display:grid;min-width:0}
+.inv .iv-a{grid-area:a;font-weight:600}
+.inv .iv-s{grid-area:s}
+.inv .iv-b{grid-area:b}
+.inv .iv-b:empty{display:none}
+.xrow{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;align-items:center}
+.xrow small{display:block;color:var(--fg-2);font-size:12.5px}
+.drow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:center;padding:12px 18px}
+.drow .r{display:flex;align-items:center;gap:10px}
+.drow b{font-weight:600;color:var(--bad)}
+
+/* modal + forms */
+#modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(5,22,24,.58)}
+.sheet{width:min(580px,100%);max-height:100%;overflow:auto;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.sh-h{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--surface)}
+.icon-btn{width:36px;height:36px;border:0;border-radius:10px;background:none;color:var(--fg-2);font-size:24px;line-height:1}
+.icon-btn:hover{background:var(--surface-2)}
+.sh-b{padding:18px 20px 22px;display:grid;gap:16px}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fld{display:grid;gap:6px;align-content:start;min-width:0}
+.fld label{font-size:13.5px;font-weight:500}
+.fld input,.fld select,.fld textarea{width:100%;min-height:42px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.fld textarea{padding:10px 12px;min-height:78px;resize:vertical;line-height:1.6}
+.span2{grid-column:1/-1}
+.factions{display:flex;gap:10px;margin-top:4px}
+.ferr{color:var(--bad);font-size:13.5px;font-weight:500;margin-top:10px}
+.note{font-size:13px;color:var(--fg-2)}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px);z-index:60;max-width:calc(100% - 32px);padding:10px 18px;border-radius:12px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:899px){
+  .app{grid-template-columns:minmax(0,1fr);gap:16px;padding-bottom:96px}
+  .side{display:none}
+  .mhead{display:flex}
+  .tabbar{display:flex}
+  #toast{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .cols,.cols.fin,.prof{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  h1{font-size:23px}
+  .strip{grid-template-columns:1fr 1fr}
+  .strip>div:nth-child(3){border-inline-start:0}
+  .strip>div:nth-child(n+3){border-top:1px solid var(--line)}
+  .appt{grid-template-columns:56px minmax(0,1fr) auto;grid-template-areas:"t b s" ". a a";padding-inline:14px}
+  .appt .aa{justify-content:flex-start}
+  .appt.free{grid-template-columns:56px minmax(0,1fr);grid-template-areas:"t f"}
+  .prow{grid-template-columns:44px minmax(0,1fr)}
+  .pr{grid-column:2;display:flex;flex-wrap:wrap;justify-items:start;gap:4px 12px;align-items:center}
+  .inv{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"p s" "d a" "b b";padding-inline:14px}
+  .inv .iv-a{text-align:end}
+  .fgrid{grid-template-columns:1fr}
+  .kv{grid-template-columns:84px minmax(0,1fr)}
+  .phead{padding:16px}
+  .phead .pacts{margin-inline-start:0;width:100%}
+  .phead .pacts .btn{flex:1}
+  #modal{align-items:flex-end;padding:0;padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px)}
+  .sheet{width:100%;max-height:92%;border-radius:18px 18px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
+}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+
+<div class="app" dir="rtl" lang="ar">
+  <div class="mhead"><div class="mark">م</div><div class="brand"><div><b>عيادة المروج</b><span>باطنة وصحة عامة</span></div></div></div>
+  <aside class="side">
+    <div class="brand"><div class="mark">م</div><div><b>عيادة المروج</b><span>باطنة وصحة عامة</span></div></div>
+    <nav class="nav" id="nav" aria-label="أقسام النظام"></nav>
+    <div class="doc"><div class="av">ر ف</div><div><b>د. ريم فتحي</b>استشارية الباطنة</div></div>
+    <p class="hours">مواعيد الكشف يوميًا من <span class="num">3:00</span> م إلى <span class="num">9:00</span> م</p>
+  </aside>
+  <main class="main"><div id="view"></div></main>
+  <nav class="tabbar" id="tabs" aria-label="أقسام النظام"></nav>
+</div>
+<div id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t" tabindex="-1"></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+try{document.documentElement.dir='rtl';document.documentElement.lang='ar';}catch(e){}
+
+/* ---------- helpers ---------- */
+const $=(s,r)=>(r||document).querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad=n=>String(n).padStart(2,'0');
+const toISO=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const fromISO=s=>{const a=s.split('-').map(Number);return new Date(a[0],a[1]-1,a[2]);};
+const addDays=(iso,n)=>{const d=fromISO(iso);d.setDate(d.getDate()+n);return toISO(d);};
+const TODAY=toISO(new Date());
+const LOC='ar-EG-u-nu-latn';
+const fd=(iso,o)=>{try{return fromISO(iso).toLocaleDateString(LOC,o);}catch(e){return iso;}};
+const D_LONG={weekday:'long',day:'numeric',month:'long',year:'numeric'};
+const D_MED={day:'numeric',month:'short',year:'numeric'};
+const sum=(a,k)=>a.reduce((s,x)=>s+x[k],0);
+const num=n=>Number(n).toLocaleString('en-US');
+const money=n=>'<span class="num">'+num(n)+'</span><span class="cur">ج.م</span>';
+const fmtK=v=>v===0?'0':(Math.round(v/100)/10)+'K';
+const ageText=n=>n===1?'سنة واحدة':n===2?'سنتان':n<=10?n+' سنوات':n+' سنة';
+const initials=name=>{const w=name.trim().split(/\s+/);return w[0][0]+(w[1]?' '+w[1][0]:'');};
+const tparts=t=>{const h=+t.slice(0,2);return {n:(h%12||12)+':'+t.slice(3),s:h>=12?'م':'ص'};};
+const timeText=t=>{const x=tparts(t);return x.n+' '+x.s;};
+const norm=s=>String(s||'').toLowerCase().replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[ً-ٟـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه');
+const svg=p=>'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
+
+/* ---------- data ---------- */
+let seed=20261027;
+function rnd(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}
+const ri=(a,b)=>a+Math.floor(rnd()*(b-a+1));
+const pick=a=>a[Math.floor(rnd()*a.length)];
+
+const FEES={'كشف':400,'متابعة':250,'استشارة':300,'إجراء':600};
+const SLOTS=[];for(let h=15;h<=20;h++){SLOTS.push(pad(h)+':00',pad(h)+':30');}
+const db={patients:[],visits:[],payments:[],appts:[],expenses:[]};
+const seq={p:1001,v:1,pay:1,a:1,e:1};
+const pat=id=>db.patients.find(p=>p.id===id);
+const appt=id=>db.appts.find(a=>a.id===id);
+
+function addPatient(o){const p=Object.assign({id:seq.p++,name:'',age:0,sex:'ذكر',phone:'',blood:'',allergy:'',chronic:'',address:'',notes:''},o);db.patients.push(p);return p;}
+function addPayment(v,amount,date){db.payments.push({id:seq.pay++,vid:v.id,pid:v.pid,date:date,amount:amount});v.paid+=amount;}
+function addVisit(o){const v={id:seq.v++,pid:o.pid,date:o.date,type:o.type,complaint:o.complaint,diagnosis:o.diagnosis,treatment:o.treatment,fee:o.fee,paid:0};db.visits.push(v);if(o.paid>0)addPayment(v,o.paid,o.date);return v;}
+function addAppt(pid,date,time,reason,status){const a={id:seq.a++,pid:pid,date:date,time:time,reason:reason,status:status||'booked'};db.appts.push(a);return a;}
+function addExpense(date,label,amount){db.expenses.push({id:seq.e++,date:date,label:label,amount:amount});}
+const slotTaken=(date,time,ex)=>db.appts.some(a=>a.date===date&&a.time===time&&a.status!=='cancelled'&&a.id!==ex);
+
+(function seedData(){
+  const H=[
+    {name:'محمود عبد الرحمن السيد',age:46,sex:'ذكر',phone:'0100 214 5587',blood:'O+',chronic:'ضغط مرتفع',address:'مدينة نصر',notes:'يفضّل المواعيد المسائية.'},
+    {name:'سلمى أحمد فؤاد',age:29,sex:'أنثى',phone:'0111 783 4120',blood:'A+',allergy:'البنسلين',address:'المعادي'},
+    {name:'يوسف إبراهيم حسن',age:8,sex:'ذكر',phone:'0122 906 3341',blood:'B+',address:'الهرم',notes:'يحضر مع والدته (أ. دعاء).'},
+    {name:'هدى محمد الشناوي',age:61,sex:'أنثى',phone:'0105 442 7096',blood:'AB+',allergy:'أدوية السلفا',chronic:'سكر النوع الثاني، ضغط مرتفع',address:'شبرا',notes:'متابعة شهرية للسكر.'},
+    {name:'كريم مصطفى عادل',age:35,sex:'ذكر',phone:'0100 558 2217',blood:'A-',address:'التجمع الخامس'},
+    {name:'مريم ياسر عبد الغني',age:24,sex:'أنثى',phone:'0112 340 9981',blood:'O+',address:'مصر الجديدة'},
+    {name:'عمر خالد النجار',age:52,sex:'ذكر',phone:'0121 667 0345',blood:'O-',chronic:'ضغط مرتفع، دهون بالدم',address:'الدقي'},
+    {name:'نور الدين سامي حافظ',age:41,sex:'ذكر',phone:'0155 281 7740',blood:'B-',address:'حلوان'},
+    {name:'آية حسام الدين',age:33,sex:'أنثى',phone:'0106 912 4408',blood:'A+',chronic:'أنيميا نقص حديد',address:'6 أكتوبر'},
+    {name:'أحمد وجدي إبراهيم',age:68,sex:'ذكر',phone:'0102 735 6619',blood:'AB-',allergy:'مادة اليود',chronic:'سكر، قصور بالشريان التاجي',address:'العباسية',notes:'يحتاج تذكيرًا بالتحاليل كل 3 أشهر.'},
+    {name:'جنى وليد سعد',age:19,sex:'أنثى',phone:'0114 820 3376',blood:'',address:'الشيخ زايد',notes:'مريضة جديدة، لم تُسجَّل لها زيارات بعد.'}
+  ];
+  H.forEach(o=>addPatient(o));
+  const HV=(pid,off,type,c,d,t,paid)=>addVisit({pid:pid,date:addDays(TODAY,off),type:type,complaint:c,diagnosis:d,treatment:t,fee:FEES[type],paid:paid===undefined?FEES[type]:paid});
+  HV(1001,-150,'كشف','صداع متكرر وارتفاع ضغط عند القياس','ارتفاع ضغط الدم من الدرجة الأولى','بدء دواء خافض للضغط وتقليل الملح وقياس الضغط يوميًا');
+  HV(1001,-105,'متابعة','متابعة الضغط','الضغط مستقر ضمن المعدل','الاستمرار على نفس الجرعة');
+  HV(1001,-48,'متابعة','دوخة عند الوقوف المفاجئ','هبوط بسيط في الضغط','تقليل الجرعة وطلب تحليل وظائف الكلى');
+  HV(1001,-9,'متابعة','متابعة نتيجة التحاليل','وظائف الكلى طبيعية','الاستمرار على الجرعة الجديدة',100);
+  HV(1002,-80,'كشف','التهاب حلق وارتفاع حرارة','التهاب لوزتين بكتيري','مضاد حيوي بديل لا يحتوي على البنسلين لمدة 7 أيام');
+  HV(1002,-2,'كشف','ألم أسفل البطن مع انتفاخ','التهاب بسيط بالقولون','مضاد للتقلصات ونظام غذائي خفيف',0);
+  HV(1003,-130,'كشف','سعال ليلي متكرر','التهاب شعبي تحسسي','موسّع شعبي بالاستنشاق لمدة 5 أيام');
+  HV(1003,-40,'متابعة','متابعة السعال','تحسن ملحوظ','إيقاف الاستنشاق والمتابعة عند الحاجة');
+  HV(1003,0,'كشف','ارتفاع حرارة منذ يومين','التهاب فيروسي بالجهاز التنفسي العلوي','خافض حرارة وسوائل وراحة');
+  HV(1004,-165,'كشف','ارتفاع السكر الصائم','سكر النوع الثاني غير منضبط','تعديل الدواء وطلب تحليل السكر التراكمي');
+  HV(1004,-135,'متابعة','نتيجة السكر التراكمي','السكر التراكمي 8.1% ما زال مرتفعًا','زيادة الجرعة وتعديل النظام الغذائي');
+  HV(1004,-100,'متابعة','متابعة السكر والضغط','تحسن بسيط والضغط 140/90','إضافة دواء للضغط');
+  HV(1004,-62,'متابعة','متابعة شهرية','السكر التراكمي 7.4%','الاستمرار على الخطة العلاجية');
+  HV(1004,-30,'استشارة','خدر بالقدمين','بداية التهاب أعصاب طرفية','فيتامينات أعصاب وفحص قاع العين');
+  HV(1004,-4,'متابعة','متابعة شهرية','السكر التراكمي 7.0% والحالة مستقرة','الاستمرار على الخطة العلاجية');
+  HV(1005,-57,'كشف','ألم أسفل الظهر منذ أسبوع','شد عضلي بالفقرات القطنية','مسكن ومرخي عضلات و6 جلسات علاج طبيعي');
+  HV(1005,-21,'متابعة','استمرار الألم عند الجلوس الطويل','تحسن جزئي','تمارين تقوية وتعديل وضع الجلوس');
+  HV(1006,-12,'كشف','حبوب بالوجه وزيادة الإفرازات','حب شباب متوسط','غسول موضعي وكريم ليلي');
+  HV(1007,-178,'كشف','ألم بالصدر عند المجهود','اشتباه إجهاد قلبي','رسم قلب وتحاليل دهون');
+  HV(1007,-170,'استشارة','نتيجة رسم القلب والتحاليل','رسم القلب طبيعي مع ارتفاع الدهون','دواء للدهون ونظام غذائي قليل الدهون');
+  HV(1007,-70,'متابعة','متابعة الدهون','انخفاض ملحوظ في الكوليسترول','الاستمرار على الدواء');
+  HV(1007,0,'متابعة','متابعة دورية','الحالة مستقرة','الاستمرار على الدواء وتحليل جديد بعد شهرين');
+  HV(1008,-33,'إجراء','جرح قطعي بالساعد','جرح قطعي سطحي','تنظيف وخياطة 3 غرز وحقنة تيتانوس');
+  HV(1008,-26,'متابعة','إزالة الغرز','التئام جيد','إزالة الغرز ووضع ضمادة');
+  HV(1009,-95,'كشف','إرهاق وشحوب','أنيميا نقص حديد','مكمل حديد وتحليل صورة دم');
+  HV(1009,-54,'متابعة','نتيجة صورة الدم','تحسن مستوى الهيموجلوبين','الاستمرار على المكمل لشهرين');
+  HV(1009,-6,'كشف','صداع نصفي متكرر','صداع نصفي','مسكن عند النوبة وتجنب المحفزات',200);
+  HV(1010,-112,'كشف','ضيق نفس عند المجهود','قصور بسيط بالشريان التاجي مع سكر','تحويل لطبيب قلب وتعديل أدوية السكر');
+  HV(1010,-75,'متابعة','متابعة بعد تقرير القلب','الحالة مستقرة','الاستمرار على الأدوية');
+  HV(1010,-38,'متابعة','متابعة السكر','السكر التراكمي 7.6%','تعديل الجرعة');
+  HV(1010,-1,'متابعة','متابعة شهرية','الحالة مستقرة','نفس الخطة العلاجية');
+
+  /* additional patient files */
+  const MF=['محمد','أحمد','محمود','مصطفى','عمرو','طارق','حسام','إسلام','هشام','شريف','وليد','ياسر','تامر','مينا','كيرلس','باسم','سامح','علاء','رامي','أيمن'];
+  const FF=['فاطمة','منى','دينا','رانيا','شيماء','نهى','إيمان','أسماء','ندى','ريهام','هبة','سارة','لمياء','مارينا','إسراء','سمر','داليا','رحمة','بسمة','هالة'];
+  const FAM=['السيد','عبد الله','فتحي','صلاح','رمضان','عثمان','حمدي','منصور','زكريا','الجمال','شاهين','عطية','البنا','سالم','جاد','الدسوقي','مرسي','خليل','عامر','بدر'];
+  const AREAS=['مدينة نصر','المعادي','التجمع الخامس','الدقي','حلوان','شبرا','الهرم','6 أكتوبر','مصر الجديدة','العباسية','الزمالك','المقطم','فيصل','الشيخ زايد'];
+  const CASES=[
+    ['سعال وارتفاع حرارة','التهاب بالجهاز التنفسي العلوي','مضاد حيوي وخافض حرارة وراحة لثلاثة أيام'],
+    ['ألم بالمعدة بعد الأكل','التهاب بسيط بالمعدة','مضاد للحموضة ونظام غذائي خفيف'],
+    ['صداع متكرر','صداع توتري','مسكن عند اللزوم وتنظيم النوم وشرب السوائل'],
+    ['ألم بالمفاصل صباحًا','التهاب مفصلي بسيط','مسكن موضعي وتمارين خفيفة'],
+    ['حكة وطفح جلدي','حساسية جلدية','مضاد للهيستامين وكريم موضعي'],
+    ['إجهاد ودوخة','نقص فيتامينات','تحاليل وتعويض فيتامينات'],
+    ['ارتفاع بالضغط عند القياس','ارتفاع ضغط الدم','قياس يومي وتعديل الدواء'],
+    ['مغص وإسهال','التهاب معوي','محلول معالجة الجفاف وعلاج للأعراض'],
+    ['ألم بالأذن','التهاب الأذن الوسطى','قطرة أذن ومضاد حيوي'],
+    ['آلام أسفل الظهر','شد عضلي','مسكن ومرخي عضلات وجلسات علاج طبيعي'],
+    ['التهاب بالحلق','التهاب لوزتين','غرغرة ومضاد حيوي لسبعة أيام'],
+    ['ارتفاع في السكر','اضطراب مستوى السكر','تحليل سكر تراكمي وتعديل النظام الغذائي']
+  ];
+  const now=new Date();
+  const winStart=new Date(now.getFullYear(),now.getMonth()-5,1);
+  const maxBack=Math.round((fromISO(TODAY)-winStart)/864e5);
+  const used=new Set(db.patients.map(p=>p.name));
+  const gen=[];
+  while(gen.length<52){
+    const fem=rnd()<0.5;
+    const first=pick(fem?FF:MF),father=pick(MF),fam=pick(FAM);
+    const name=first+' '+father+' '+fam;
+    if(father===first||used.has(name))continue;
+    used.add(name);
+    const age=ri(6,78);
+    gen.push(addPatient({
+      name:name,age:age,sex:fem?'أنثى':'ذكر',
+      phone:'01'+pick(['0','1','2','5'])+ri(0,9)+' '+ri(100,999)+' '+ri(1000,9999),
+      blood:pick(['A+','A+','B+','B+','O+','O+','AB+','A-','O-','B-']),
+      allergy:rnd()<0.12?pick(['البنسلين','الغبار','المأكولات البحرية','الأسبرين']):'',
+      chronic:age>50&&rnd()<0.5?pick(['ضغط مرتفع','سكر النوع الثاني','ضغط مرتفع، سكر','دهون بالدم']):(rnd()<0.06?'ربو شعبي':''),
+      address:pick(AREAS)
+    }));
+  }
+  gen.forEach(p=>{
+    const k=ri(1,6),offs=new Set();
+    while(offs.size<k)offs.add(-ri(1,maxBack));
+    Array.from(offs).sort((a,b)=>a-b).forEach((off,i)=>{
+      const type=i===0?(rnd()<0.85?'كشف':'استشارة'):pick(['متابعة','متابعة','متابعة','استشارة','كشف','إجراء']);
+      let c,d,t;
+      if(type==='كشف'){const x=pick(CASES);c=x[0];d=x[1];t=x[2];}
+      else if(type==='متابعة'){c='متابعة بعد العلاج';d=pick(['تحسن ملحوظ','الحالة مستقرة','تحسن جزئي مع بقاء أعراض خفيفة']);t=pick(['الاستمرار على الخطة العلاجية','تعديل الجرعة والمتابعة بعد أسبوعين','إيقاف الدواء والمتابعة عند الحاجة']);}
+      else if(type==='استشارة'){c='استشارة بعد نتيجة التحاليل';d='النتائج ضمن المعدل الطبيعي';t='لا حاجة لتغيير الخطة';}
+      else{c='تغيير على جرح بسيط';d='التئام جيد';t='تنظيف الجرح وتغيير الضمادة';}
+      const fee=FEES[type],r=rnd(),recent=off>-8;
+      let paid=fee;
+      if(recent){paid=r<0.7?fee:r<0.85?Math.round(fee/2):0;}
+      else{paid=r<0.93?fee:r<0.97?Math.round(fee/2):0;}
+      addVisit({pid:p.id,date:addDays(TODAY,off),type:type,complaint:c,diagnosis:d,treatment:t,fee:fee,paid:paid});
+    });
+  });
+
+  /* appointments */
+  const hand=[
+    [1003,0,'15:00','كشف','done'],[1007,0,'16:00','متابعة دورية','done'],[1009,0,'17:00','متابعة الصداع','waiting'],
+    [1002,0,'17:30','متابعة الألم','booked'],[1011,0,'18:00','كشف جديد','booked'],[1005,0,'18:30','متابعة الظهر','booked'],
+    [1006,0,'19:00','متابعة العلاج','booked'],[1010,0,'19:30','متابعة شهرية','cancelled'],
+    [1004,1,'17:00','متابعة السكر','booked'],[1001,1,'18:00','قياس الضغط','booked'],
+    [1010,2,'17:30','متابعة شهرية','booked'],[1003,3,'16:00','متابعة الحرارة','booked'],[1007,5,'18:00','تحاليل الدهون','booked']
+  ];
+  hand.forEach(h=>addAppt(h[0],addDays(TODAY,h[1]),h[2],h[3],h[4]));
+  for(let off=1;off<=9;off++){
+    const date=addDays(TODAY,off),n=ri(1,4);
+    for(let j=0;j<n;j++){
+      const p=pick(gen);
+      if(db.appts.some(a=>a.date===date&&a.pid===p.id))continue;
+      const free=SLOTS.filter(t=>!slotTaken(date,t));
+      if(!free.length)break;
+      addAppt(p.id,date,pick(free),pick(['كشف','متابعة','استشارة','متابعة نتيجة التحاليل']),'booked');
+    }
+  }
+
+  /* expenses */
+  for(let i=0;i<6;i++){
+    [[1,'إيجار العيادة',3000],[1,'مرتب السكرتارية',2500],[8,'مستلزمات طبية',ri(350,800)],[15,'كهرباء ومياه وإنترنت',ri(350,450)],[22,'مستلزمات التعقيم',ri(250,600)]].forEach(x=>{
+      const d=toISO(new Date(now.getFullYear(),now.getMonth()-i,x[0]));
+      if(d<=TODAY)addExpense(d,x[1],x[2]);
+    });
+  }
+})();
+
+function buildIdx(){
+  const m=new Map();
+  db.patients.forEach(p=>m.set(p.id,{n:0,last:'',fee:0,paid:0}));
+  db.visits.forEach(v=>{const x=m.get(v.pid);if(!x)return;x.n++;x.fee+=v.fee;x.paid+=v.paid;if(v.date>x.last)x.last=v.date;});
+  return m;
+}
+
+/* ---------- state + shell ---------- */
+const ui={route:'today',q:'',pf:'all',pLimit:30,day:TODAY,inv:'all',invLimit:15};
+const view=$('#view'),modal=$('#modal'),sheet=$('#sheet');
+const ST={booked:['محجوز','st-booked'],waiting:['في الانتظار','st-waiting'],done:['تم الكشف','st-done'],cancelled:['ملغي','st-cancelled']};
+const NAV=[
+  ['today','اليوم','<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'],
+  ['patients','المرضى','<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17.5 14.5c2.3.3 3.8 2 4 4.5"/>'],
+  ['appointments','الحجوزات','<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>'],
+  ['finance','الماليات','<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18"/><circle cx="16.5" cy="14.5" r="1.2"/>']
+];
+const navHTML=NAV.map(n=>'<button data-action="go" data-to="'+n[0]+'">'+svg(n[2])+'<span>'+n[1]+'</span></button>').join('');
+$('#nav').innerHTML=navHTML;$('#tabs').innerHTML=navHTML;
+
+const validRoute=r=>['today','patients','appointments','finance'].indexOf(r)>=0||/^patient-\d+$/.test(r);
+function setNav(){
+  const r=ui.route,base=r.indexOf('patient-')===0?'patients':r;
+  document.querySelectorAll('[data-to]').forEach(b=>{if(b.dataset.to===base)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
+}
+function go(r){ui.route=r;try{if(location.hash.slice(1)!==r)location.hash=r;}catch(e){}render();}
+let lastRoute='';
+function render(){
+  const r=ui.route;let html;
+  if(r==='patients')html=viewPatients();
+  else if(r.indexOf('patient-')===0)html=viewProfile(+r.slice(8));
+  else if(r==='appointments')html=viewAppts();
+  else if(r==='finance')html=viewFinance();
+  else html=viewToday();
+  view.innerHTML=html;
+  if(ui.route==='patients')fillPatients();
+  setNav();
+  if(lastRoute!==ui.route){try{window.scrollTo(0,0);}catch(e){}lastRoute=ui.route;}
+}
+let tt;
+function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),2800);}
+
+/* ---------- views ---------- */
+function apptRow(a){
+  const p=pat(a.pid),x=tparts(a.time),st=ST[a.status];
+  let acts='';
+  if(a.status==='booked')acts='<button class="btn sm" data-action="appt-arrive" data-id="'+a.id+'">تسجيل وصول</button><button class="btn sm ghost" data-action="appt-cancel" data-id="'+a.id+'">إلغاء</button>';
+  else if(a.status==='waiting')acts='<button class="btn sm primary" data-action="appt-visit" data-id="'+a.id+'">بدء الكشف</button><button class="btn sm ghost" data-action="appt-cancel" data-id="'+a.id+'">إلغاء</button>';
+  else if(a.status==='cancelled')acts='<button class="btn sm" data-action="appt-restore" data-id="'+a.id+'">إعادة الحجز</button>';
+  return '<li class="appt '+a.status+'"><div class="at"><b class="num">'+x.n+'</b><small>'+x.s+'</small></div>'
+    +'<div class="ab"><button class="link" data-action="open-patient" data-id="'+p.id+'">'+esc(p.name)+'</button><span class="reason">'+esc(a.reason)+' · '+ageText(p.age)+'</span></div>'
+    +'<div class="as"><span class="pill '+st[1]+'">'+st[0]+'</span></div><div class="aa">'+acts+'</div></li>';
+}
+
+function viewToday(){
+  const idx=buildIdx();
+  const ap=db.appts.filter(a=>a.date===TODAY).sort((a,b)=>a.time.localeCompare(b.time));
+  const live=ap.filter(a=>a.status!=='cancelled');
+  const waiting=ap.filter(a=>a.status==='waiting').length;
+  const done=ap.filter(a=>a.status==='done').length;
+  const coll=sum(db.payments.filter(x=>x.date===TODAY),'amount');
+  const debtors=Array.from(idx.entries()).map(e=>({id:e[0],bal:e[1].fee-e[1].paid,last:e[1].last})).filter(x=>x.bal>0).sort((a,b)=>b.bal-a.bal);
+  const totalDebt=sum(debtors,'bal');
+  return '<div class="ph"><div><h1>جدول اليوم</h1><p class="sub">'+fd(TODAY,D_LONG)+'</p></div>'
+    +'<div class="pacts"><button class="btn" data-action="new-patient">مريض جديد</button><button class="btn primary" data-action="new-appt" data-date="'+TODAY+'">حجز جديد</button></div></div>'
+    +'<div class="card strip"><div><span class="k">حجوزات اليوم</span><b class="v num">'+live.length+'</b></div>'
+    +'<div><span class="k">في الانتظار</span><b class="v num">'+waiting+'</b></div>'
+    +'<div><span class="k">تم كشفهم</span><b class="v num">'+done+'</b></div>'
+    +'<div><span class="k">تحصيل اليوم</span><b class="v">'+money(coll)+'</b></div></div>'
+    +'<div class="cols"><section class="card"><div class="sec-h"><h2>مواعيد اليوم</h2><button class="btn sm ghost" data-action="go" data-to="appointments">كل الحجوزات</button></div>'
+    +'<ul class="list">'+(ap.length?ap.map(apptRow).join(''):'<li class="empty">لا توجد حجوزات اليوم بعد.</li>')+'</ul></section>'
+    +'<section class="card"><div class="sec-h"><div><h2>مستحقات غير مسددة</h2><p class="sub">الإجمالي '+money(totalDebt)+'</p></div></div><ul class="list">'
+    +(debtors.length?debtors.slice(0,6).map(d=>'<li class="drow"><div><button class="link" data-action="open-patient" data-id="'+d.id+'">'+esc(pat(d.id).name)+'</button><p class="sub">آخر زيارة '+fd(d.last,D_MED)+'</p></div><div class="r"><b>'+money(d.bal)+'</b><button class="btn sm" data-action="collect" data-pid="'+d.id+'">تحصيل</button></div></li>').join(''):'<li class="empty">لا توجد مستحقات.</li>')
+    +'</ul></section></div>';
+}
+
+function chipBtn(action,f,cur,label){return '<button class="chipb" data-action="'+action+'" data-f="'+f+'" aria-pressed="'+(cur===f)+'">'+label+'</button>';}
+function viewPatients(){
+  return '<div class="ph"><div><h1>المرضى</h1><p class="sub" id="pcount"></p></div><div class="pacts"><button class="btn primary" data-action="new-patient">مريض جديد</button></div></div>'
+    +'<div class="card"><div class="tools"><div class="search">'+svg('<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>')
+    +'<input id="q" type="search" placeholder="ابحث بالاسم أو رقم الهاتف أو رقم الملف" value="'+esc(ui.q)+'" autocomplete="off" aria-label="بحث في المرضى"></div>'
+    +'<div class="chips">'+chipBtn('pfilter','all',ui.pf,'الكل')+chipBtn('pfilter','debt',ui.pf,'عليهم مستحقات')+chipBtn('pfilter','chronic',ui.pf,'أمراض مزمنة')+'</div></div>'
+    +'<ul class="list" id="plist"></ul><div id="pmore"></div></div>';
+}
+function patientRow(p,x){
+  const bal=x.fee-x.paid;
+  return '<li><button class="prow" data-action="open-patient" data-id="'+p.id+'"><span class="av">'+esc(initials(p.name))+'</span>'
+    +'<span class="pb"><span class="pn">'+esc(p.name)+'</span><span class="pm">'+ageText(p.age)+' · '+p.sex+(p.chronic?' · '+esc(p.chronic):'')+'</span></span>'
+    +'<span class="pr"><span>'+(x.last?'آخر زيارة '+fd(x.last,D_MED):'لا توجد زيارات')+'</span>'
+    +(bal>0?'<span class="pill st-bad">متبقي '+money(bal)+'</span>':'<span class="num">'+esc(p.phone)+'</span>')+'</span></button></li>';
+}
+function fillPatients(){
+  const idx=buildIdx(),q=norm(ui.q.trim()),qd=q.replace(/\D/g,'');
+  const rows=db.patients.filter(p=>{
+    const x=idx.get(p.id);
+    if(ui.pf==='debt'&&!(x.fee>x.paid))return false;
+    if(ui.pf==='chronic'&&!p.chronic)return false;
+    if(!q)return true;
+    return norm(p.name).indexOf(q)>=0||(qd&&p.phone.replace(/\D/g,'').indexOf(qd)>=0)||String(p.id).indexOf(q)>=0;
+  });
+  rows.sort((a,b)=>(idx.get(b.id).last||'').localeCompare(idx.get(a.id).last||'')||a.name.localeCompare(b.name,'ar'));
+  const shown=rows.slice(0,ui.pLimit);
+  $('#pcount').textContent=rows.length+' من '+db.patients.length+' مريض';
+  $('#plist').innerHTML=shown.length?shown.map(p=>patientRow(p,idx.get(p.id))).join(''):'<li class="empty">لا يوجد مريض يطابق البحث.</li>';
+  $('#pmore').innerHTML=rows.length>shown.length?'<div class="more"><button class="btn" data-action="more-patients">عرض المزيد ('+(rows.length-shown.length)+')</button></div>':'';
+}
+
+function payChip(v){
+  const bal=v.fee-v.paid;
+  if(bal<=0)return '<span class="pill st-done">مدفوع</span>';
+  if(v.paid===0)return '<span class="pill st-bad">غير مدفوع</span>';
+  return '<span class="pill st-waiting">متبقي '+money(bal)+'</span>';
+}
+function viewProfile(id){
+  const p=pat(id);
+  if(!p){ui.route='patients';return viewPatients();}
+  const vs=db.visits.filter(v=>v.pid===id).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+  const fee=sum(vs,'fee'),paid=sum(vs,'paid'),bal=fee-paid;
+  const next=db.appts.filter(a=>a.pid===id&&a.date>=TODAY&&(a.status==='booked'||a.status==='waiting')).sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time))[0];
+  const dash='<span class="muted">—</span>';
+  const visitsHTML=vs.length?vs.map(v=>{
+    const b=v.fee-v.paid;
+    return '<li class="card visit"><div class="vh"><div><strong>'+fd(v.date,D_MED)+'</strong> <span class="muted">· '+fd(v.date,{weekday:'long'})+'</span></div><div class="vc"><span class="pill neutral">'+v.type+'</span>'+payChip(v)+'</div></div>'
+      +'<dl class="kv"><dt>الشكوى</dt><dd>'+esc(v.complaint)+'</dd><dt>التشخيص</dt><dd>'+esc(v.diagnosis)+'</dd><dt>العلاج</dt><dd>'+esc(v.treatment)+'</dd>'
+      +'<dt>الحساب</dt><dd class="vacc"><span>'+money(v.fee)+'</span><span class="muted">مدفوع '+money(v.paid)+'</span>'+(b>0?'<button class="btn sm" data-action="collect" data-pid="'+id+'" data-vid="'+v.id+'">تحصيل '+money(b)+'</button>':'')+'</dd></dl></li>';
+  }).join(''):'<li class="card empty">لا توجد زيارات مسجلة بعد. سجّل أول زيارة من زر «زيارة جديدة».</li>';
+  return '<button class="back" data-action="go" data-to="patients">'+svg('<path d="M9 6l6 6-6 6"/>')+'<span>كل المرضى</span></button>'
+    +'<section class="card phead"><div class="av">'+esc(initials(p.name))+'</div><div class="pi"><h1>'+esc(p.name)+'</h1>'
+    +'<p class="sub">ملف رقم <span class="num">'+p.id+'</span> · '+ageText(p.age)+' · '+p.sex+'</p>'
+    +'<p class="sub"><span class="num">'+esc(p.phone||'—')+'</span>'+(p.address?' · '+esc(p.address):'')+'</p></div>'
+    +'<div class="pacts"><button class="btn primary" data-action="new-visit" data-id="'+id+'">زيارة جديدة</button><button class="btn" data-action="new-appt" data-pid="'+id+'">حجز موعد</button><button class="btn" data-action="edit-patient" data-id="'+id+'">تعديل البيانات</button></div></section>'
+    +'<div class="prof"><aside class="stack">'
+    +'<section class="card"><div class="sec-h"><h2>البيانات الطبية</h2></div><dl class="kv pad"><dt>فصيلة الدم</dt><dd>'+(p.blood?'<span class="num">'+esc(p.blood)+'</span>':dash)+'</dd>'
+    +'<dt>الحساسية</dt><dd>'+(p.allergy?'<span class="chip bad">'+esc(p.allergy)+'</span>':'<span class="muted">لا توجد حساسية معروفة</span>')+'</dd>'
+    +'<dt>أمراض مزمنة</dt><dd>'+(p.chronic?'<span class="chip warn">'+esc(p.chronic)+'</span>':'<span class="muted">لا يوجد</span>')+'</dd>'
+    +'<dt>ملاحظات</dt><dd>'+(p.notes?esc(p.notes):dash)+'</dd></dl></section>'
+    +'<section class="card"><div class="sec-h"><h2>الحساب</h2></div><dl class="kv pad"><dt>عدد الزيارات</dt><dd class="num">'+vs.length+'</dd><dt>الإجمالي</dt><dd>'+money(fee)+'</dd><dt>المدفوع</dt><dd>'+money(paid)+'</dd><dt>المتبقي</dt><dd class="'+(bal>0?'bal':'')+'">'+money(bal)+'</dd></dl>'
+    +(bal>0?'<div class="acc-act"><button class="btn primary" data-action="collect" data-pid="'+id+'" style="width:100%">تحصيل المتبقي</button></div>':'')+'</section>'
+    +'<section class="card"><div class="sec-h"><h2>الموعد القادم</h2></div>'
+    +(next?'<dl class="kv pad"><dt>الموعد</dt><dd>'+fd(next.date,{weekday:'long',day:'numeric',month:'long'})+' · '+timeText(next.time)+'</dd><dt>السبب</dt><dd>'+esc(next.reason)+'</dd></dl>':'<div class="acc-act"><p class="muted" style="margin-bottom:12px">لا يوجد موعد قادم.</p><button class="btn" data-action="new-appt" data-pid="'+id+'">حجز موعد</button></div>')
+    +'</section></aside>'
+    +'<section><div class="ph" style="margin-bottom:14px"><div><h2>سجل الزيارات</h2><p class="sub">'+vs.length+' زيارة مسجلة</p></div></div><ul class="tl">'+visitsHTML+'</ul></section></div>';
+}
+
+function viewAppts(){
+  if(!ui.day||ui.day<TODAY)ui.day=TODAY;
+  const days=[];for(let i=0;i<14;i++)days.push(addDays(TODAY,i));
+  const cnt=d=>db.appts.filter(a=>a.date===d&&a.status!=='cancelled').length;
+  const strip=days.map(d=>'<button class="day" data-action="pick-day" data-date="'+d+'" aria-pressed="'+(d===ui.day)+'"><span>'+(d===TODAY?'اليوم':fd(d,{weekday:'short'}))+'</span><b class="num">'+(+d.slice(8))+'</b><small>'+(cnt(d)?cnt(d)+' حجز':'فارغ')+'</small></button>').join('');
+  const busy=cnt(ui.day);
+  const rows=SLOTS.map(t=>{
+    const a=db.appts.find(x=>x.date===ui.day&&x.time===t&&x.status!=='cancelled');
+    if(a)return apptRow(a);
+    const x=tparts(t);
+    return '<li class="appt free"><div class="at"><b class="num">'+x.n+'</b><small>'+x.s+'</small></div><button class="slot" data-action="new-appt" data-date="'+ui.day+'" data-time="'+t+'">موعد متاح، اضغط للحجز</button></li>';
+  }).join('');
+  const cancelled=db.appts.filter(a=>a.date===ui.day&&a.status==='cancelled').sort((a,b)=>a.time.localeCompare(b.time));
+  return '<div class="ph"><div><h1>الحجوزات</h1><p class="sub">'+fd(ui.day,D_LONG)+' · '+busy+' من '+SLOTS.length+' مواعيد محجوزة</p></div>'
+    +'<div class="pacts"><button class="btn primary" data-action="new-appt" data-date="'+ui.day+'">حجز جديد</button></div></div>'
+    +'<div class="days" role="group" aria-label="اختيار اليوم">'+strip+'</div>'
+    +'<section class="card"><ul class="list">'+rows+'</ul></section>'
+    +(cancelled.length?'<section class="card" style="margin-top:20px"><div class="sec-h"><h2>حجوزات ملغاة</h2></div><ul class="list">'+cancelled.map(apptRow).join('')+'</ul></section>':'');
+}
+
+function viewFinance(){
+  const ym=TODAY.slice(0,7);
+  const mc=sum(db.payments.filter(x=>x.date.indexOf(ym)===0),'amount');
+  const me=sum(db.expenses.filter(x=>x.date.indexOf(ym)===0),'amount');
+  const open=db.visits.filter(v=>v.fee>v.paid);
+  const out=sum(open.map(v=>({d:v.fee-v.paid})),'d');
+  const now=new Date(),months=[];
+  for(let i=5;i>=0;i--){
+    const d=new Date(now.getFullYear(),now.getMonth()-i,1),key=toISO(d).slice(0,7);
+    months.push({label:d.toLocaleDateString(LOC,{month:'long'}),rev:sum(db.payments.filter(x=>x.date.indexOf(key)===0),'amount'),exp:sum(db.expenses.filter(x=>x.date.indexOf(key)===0),'amount'),cur:i===0});
+  }
+  const mx=Math.max.apply(null,months.map(m=>Math.max(m.rev,m.exp)).concat([1000]));
+  const top=Math.ceil(mx*1.12/2000)*2000;
+  const ticks=[0,0.25,0.5,0.75,1].map(f=>top*f);
+  const chart='<div class="chart" role="img" aria-label="الإيرادات والمصروفات خلال آخر 6 أشهر"><div class="plot">'
+    +ticks.map(t=>'<div class="gl" style="bottom:'+(t/top*100)+'%"><span class="num">'+fmtK(t)+'</span></div>').join('')
+    +'<div class="bars">'+months.map(m=>'<div class="grp" title="'+m.label+': إيرادات '+num(m.rev)+' ج.م، مصروفات '+num(m.exp)+' ج.م"><div class="bar rev" style="height:'+(m.rev/top*100)+'%"><i class="num">'+fmtK(m.rev)+'</i></div><div class="bar exp" style="height:'+(m.exp/top*100)+'%"></div></div>').join('')+'</div></div>'
+    +'<div class="months">'+months.map(m=>'<span'+(m.cur?' class="cur-m"':'')+'>'+m.label+'</span>').join('')+'</div></div>'
+    +'<div class="legend"><span><i class="sw rev"></i>إيرادات محصّلة</span><span><i class="sw exp"></i>مصروفات</span><span>الشهر الحالي يشمل الأيام حتى اليوم فقط (الأرقام بالألف جنيه)</span></div>';
+  const all=db.visits.slice().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+  const rows=ui.inv==='open'?all.filter(v=>v.fee>v.paid):all;
+  const shown=rows.slice(0,ui.invLimit);
+  const invHTML=shown.length?shown.map(v=>{
+    const p=pat(v.pid),b=v.fee-v.paid;
+    return '<li class="inv"><div class="iv-d">'+fd(v.date,D_MED)+'</div><div class="iv-p"><button class="link" data-action="open-patient" data-id="'+p.id+'">'+esc(p.name)+'</button><span class="sub">'+v.type+'</span></div><div class="iv-a">'+money(v.fee)+'</div><div class="iv-s">'+payChip(v)+'</div><div class="iv-b">'+(b>0?'<button class="btn sm" data-action="collect" data-pid="'+p.id+'" data-vid="'+v.id+'">تحصيل</button>':'')+'</div></li>';
+  }).join(''):'<li class="empty">لا توجد فواتير مطابقة.</li>';
+  const exps=db.expenses.filter(x=>x.date.indexOf(ym)===0).sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+  const net=mc-me;
+  return '<div class="ph"><div><h1>الماليات</h1><p class="sub">'+fd(TODAY,{month:'long',year:'numeric'})+'</p></div><div class="pacts"><button class="btn primary" data-action="new-expense">تسجيل مصروف</button></div></div>'
+    +'<div class="card strip"><div><span class="k">الإيرادات المحصّلة هذا الشهر</span><b class="v">'+money(mc)+'</b></div>'
+    +'<div><span class="k">المصروفات هذا الشهر</span><b class="v">'+money(me)+'</b></div>'
+    +'<div><span class="k">صافي الشهر</span><b class="v '+(net>=0?'good':'bad')+'">'+money(net)+'</b></div>'
+    +'<div><span class="k">مستحقات غير مسددة ('+open.length+' فاتورة)</span><b class="v bad">'+money(out)+'</b></div></div>'
+    +'<section class="card" style="margin-top:20px"><div class="sec-h"><h2>الإيرادات والمصروفات</h2></div>'+chart+'</section>'
+    +'<div class="cols fin"><section class="card"><div class="sec-h"><h2>الفواتير</h2><div class="chips">'+chipBtn('invfilter','all',ui.inv,'الكل')+chipBtn('invfilter','open',ui.inv,'غير مسددة')+'</div></div>'
+    +'<ul class="list">'+invHTML+'</ul>'+(rows.length>shown.length?'<div class="more"><button class="btn" data-action="more-inv">عرض المزيد ('+(rows.length-shown.length)+')</button></div>':'')+'</section>'
+    +'<section class="card"><div class="sec-h"><div><h2>مصروفات الشهر</h2><p class="sub">الإجمالي '+money(me)+'</p></div></div><ul class="list">'
+    +(exps.length?exps.map(x=>'<li class="xrow"><div>'+esc(x.label)+'<small>'+fd(x.date,{day:'numeric',month:'long'})+'</small></div><b>'+money(x.amount)+'</b></li>').join(''):'<li class="empty">لا توجد مصروفات مسجلة هذا الشهر.</li>')
+    +'</ul></section></div>';
+}
+
+/* ---------- modal + forms ---------- */
+function openModal(title,body){
+  sheet.innerHTML='<div class="sh-h"><h2 id="sh-t">'+title+'</h2><button class="icon-btn" data-action="close" aria-label="إغلاق">×</button></div><div class="sh-b">'+body+'</div>';
+  modal.hidden=false;document.body.classList.add('lock');
+  let fine=true;try{fine=window.matchMedia('(pointer:fine)').matches;}catch(e){}
+  const f=sheet.querySelector('input:not([type=hidden]),select,textarea');
+  if(fine&&f)f.focus();else sheet.focus();
+}
+function closeModal(){modal.hidden=true;document.body.classList.remove('lock');sheet.innerHTML='';}
+function ferr(f,msg){const e=f.querySelector('.ferr');e.textContent=msg;e.hidden=false;}
+const fld=(id,label,ctl,cls)=>'<div class="fld '+(cls||'')+'"><label for="'+id+'">'+label+'</label>'+ctl+'</div>';
+const FOOT=(label)=>'<p class="ferr" role="alert" hidden></p><div class="factions"><button class="btn primary" type="submit">'+label+'</button><button class="btn" type="button" data-action="close">إلغاء</button></div>';
+
+function openPatientForm(p){
+  const v=p||{};
+  const bl=['','A+','A-','B+','B-','AB+','AB-','O+','O-'];
+  openModal(p?'تعديل بيانات المريض':'مريض جديد',
+    '<form data-form="patient" data-id="'+(p?p.id:'')+'" novalidate><div class="fgrid">'
+    +fld('f-name','الاسم الكامل','<input id="f-name" name="name" value="'+esc(v.name)+'" autocomplete="off" required>','span2')
+    +fld('f-age','العمر بالسنوات','<input id="f-age" name="age" type="number" inputmode="numeric" min="0" max="120" value="'+esc(v.age===undefined?'':v.age)+'">')
+    +fld('f-sex','النوع','<select id="f-sex" name="sex"><option'+(v.sex!=='أنثى'?' selected':'')+'>ذكر</option><option'+(v.sex==='أنثى'?' selected':'')+'>أنثى</option></select>')
+    +fld('f-phone','رقم الهاتف','<input id="f-phone" name="phone" type="tel" inputmode="tel" dir="ltr" style="text-align:start" value="'+esc(v.phone)+'">')
+    +fld('f-blood','فصيلة الدم','<select id="f-blood" name="blood">'+bl.map(b=>'<option value="'+b+'"'+(v.blood===b?' selected':'')+'>'+(b||'غير معروفة')+'</option>').join('')+'</select>')
+    +fld('f-addr','المنطقة','<input id="f-addr" name="address" value="'+esc(v.address)+'">','span2')
+    +fld('f-all','الحساسية','<input id="f-all" name="allergy" value="'+esc(v.allergy)+'">')
+    +fld('f-chr','أمراض مزمنة','<input id="f-chr" name="chronic" value="'+esc(v.chronic)+'">')
+    +fld('f-notes','ملاحظات','<textarea id="f-notes" name="notes">'+esc(v.notes)+'</textarea>','span2')
+    +'</div>'+FOOT('حفظ')+'</form>');
+}
+function submitPatient(f){
+  const d=Object.fromEntries(new FormData(f));
+  const name=(d.name||'').trim(),age=Number(d.age);
+  if(!name)return ferr(f,'اكتب اسم المريض.');
+  if(d.age===''||!(age>=0&&age<=120))return ferr(f,'اكتب عمرًا صحيحًا بين 0 و120.');
+  const rec={name:name,age:Math.round(age),sex:d.sex,phone:(d.phone||'').trim(),blood:d.blood||'',address:(d.address||'').trim(),allergy:(d.allergy||'').trim(),chronic:(d.chronic||'').trim(),notes:(d.notes||'').trim()};
+  closeModal();
+  if(f.dataset.id){Object.assign(pat(+f.dataset.id),rec);toast('تم حفظ التعديلات');render();}
+  else{const p=addPatient(rec);toast('تمت إضافة المريض');go('patient-'+p.id);}
+}
+
+function openVisitForm(pid,apptId){
+  const p=pat(pid);if(!p)return;
+  const a=apptId?appt(apptId):null;
+  const first=!db.visits.some(v=>v.pid===pid);
+  const type=first?'كشف':'متابعة';
+  openModal('زيارة جديدة',
+    '<p class="note">'+esc(p.name)+' · ملف رقم <span class="num">'+p.id+'</span>'+(p.allergy?' · حساسية: '+esc(p.allergy):'')+'</p>'
+    +'<form data-form="visit" data-pid="'+pid+'" data-appt="'+(a?a.id:'')+'" novalidate><div class="fgrid">'
+    +fld('f-date','تاريخ الزيارة','<input id="f-date" name="date" type="date" max="'+TODAY+'" value="'+TODAY+'">')
+    +fld('f-type','نوع الزيارة','<select id="f-type" name="type">'+Object.keys(FEES).map(t=>'<option value="'+t+'"'+(t===type?' selected':'')+'>'+t+'</option>').join('')+'</select>')
+    +fld('f-comp','الشكوى','<textarea id="f-comp" name="complaint">'+esc(a?a.reason:'')+'</textarea>','span2')
+    +fld('f-diag','التشخيص','<input id="f-diag" name="diagnosis" autocomplete="off">','span2')
+    +fld('f-treat','العلاج والتوصيات','<textarea id="f-treat" name="treatment"></textarea>','span2')
+    +fld('f-fee','قيمة الكشف (ج.م)','<input id="f-fee" name="fee" type="number" inputmode="numeric" min="0" value="'+FEES[type]+'">')
+    +fld('f-paid','المدفوع الآن (ج.م)','<input id="f-paid" name="paid" type="number" inputmode="numeric" min="0" value="'+FEES[type]+'">')
+    +'</div>'+FOOT('حفظ الزيارة')+'</form>');
+}
+function submitVisit(f){
+  const d=Object.fromEntries(new FormData(f)),pid=+f.dataset.pid;
+  const fee=Number(d.fee),paid=Number(d.paid);
+  if(!(d.complaint||'').trim())return ferr(f,'اكتب شكوى المريض.');
+  if(!(d.diagnosis||'').trim())return ferr(f,'اكتب التشخيص.');
+  if(!d.date||d.date>TODAY)return ferr(f,'تاريخ الزيارة غير صحيح.');
+  if(d.fee===''||!(fee>=0))return ferr(f,'اكتب قيمة الكشف.');
+  if(d.paid===''||!(paid>=0)||paid>fee)return ferr(f,'المبلغ المدفوع لا يمكن أن يزيد على قيمة الكشف.');
+  addVisit({pid:pid,date:d.date,type:d.type,complaint:d.complaint.trim(),diagnosis:d.diagnosis.trim(),treatment:(d.treatment||'').trim()||'—',fee:fee,paid:paid});
+  if(f.dataset.appt){const a=appt(+f.dataset.appt);if(a)a.status='done';}
+  closeModal();toast('تم حفظ الزيارة');render();
+}
+
+function slotOptions(date,sel){
+  return SLOTS.map(t=>{
+    const taken=slotTaken(date,t);
+    return '<option value="'+t+'"'+(taken?' disabled':'')+(t===sel&&!taken?' selected':'')+'>'+timeText(t)+(taken?' (محجوز)':'')+'</option>';
+  }).join('');
+}
+function openApptForm(o){
+  o=o||{};
+  const date=o.date||ui.day||TODAY;
+  const list=db.patients.slice().sort((a,b)=>a.name.localeCompare(b.name,'ar'));
+  const hasVisits=o.pid&&db.visits.some(v=>v.pid===o.pid);
+  openModal('حجز جديد',
+    '<form data-form="appt" novalidate><div class="fgrid">'
+    +fld('a-pid','المريض','<select id="a-pid" name="pid"><option value="">اختر المريض</option>'+list.map(p=>'<option value="'+p.id+'"'+(p.id===o.pid?' selected':'')+'>'+esc(p.name)+'</option>').join('')+'</select>','span2')
+    +fld('a-date','اليوم','<input id="a-date" name="date" type="date" min="'+TODAY+'" max="'+addDays(TODAY,13)+'" value="'+date+'">')
+    +fld('a-time','الساعة','<select id="a-time" name="time">'+slotOptions(date,o.time)+'</select>')
+    +fld('a-reason','سبب الزيارة','<input id="a-reason" name="reason" autocomplete="off" value="'+(hasVisits?'متابعة':'كشف')+'">','span2')
+    +'</div><p class="note" style="margin-top:10px">الحجز متاح خلال 14 يومًا من اليوم.</p>'+FOOT('تأكيد الحجز')+'</form>');
+}
+function submitAppt(f){
+  const d=Object.fromEntries(new FormData(f));
+  if(!d.pid)return ferr(f,'اختر المريض أولًا.');
+  if(!d.date||d.date<TODAY||d.date>addDays(TODAY,13))return ferr(f,'اختر يومًا خلال 14 يومًا من اليوم.');
+  if(!d.time)return ferr(f,'لا توجد مواعيد متاحة في هذا اليوم. اختر يومًا آخر.');
+  if(slotTaken(d.date,d.time))return ferr(f,'هذا الموعد محجوز بالفعل. اختر ساعة أخرى.');
+  const a=addAppt(+d.pid,d.date,d.time,(d.reason||'').trim()||'كشف','booked');
+  ui.day=d.date;closeModal();toast('تم حجز '+pat(a.pid).name+' الساعة '+timeText(a.time));render();
+}
+function setAppt(id,st,msg){const a=appt(id);if(!a)return;a.status=st;toast(msg+': '+pat(a.pid).name);render();}
+function restoreAppt(id){
+  const a=appt(id);if(!a)return;
+  if(slotTaken(a.date,a.time,a.id)){toast('هذا الموعد أصبح محجوزًا لمريض آخر');return;}
+  setAppt(id,'booked','تمت إعادة الحجز');
+}
+
+function unpaidFor(pid,vid){
+  const t=vid?db.visits.filter(v=>v.id===vid):db.visits.filter(v=>v.pid===pid&&v.fee>v.paid);
+  return t.sort((a,b)=>a.date.localeCompare(b.date)||a.id-b.id);
+}
+function openCollect(pid,vid){
+  const p=pat(pid);if(!p)return;
+  const bal=sum(unpaidFor(pid,vid).map(v=>({d:v.fee-v.paid})),'d');
+  if(bal<=0){toast('لا توجد مستحقات على هذا المريض');return;}
+  openModal('تحصيل مبلغ',
+    '<p class="note">'+esc(p.name)+' · المتبقي '+money(bal)+'</p>'
+    +'<form data-form="collect" data-pid="'+pid+'" data-vid="'+(vid||'')+'" novalidate><div class="fgrid">'
+    +fld('c-amt','المبلغ المحصّل (ج.م)','<input id="c-amt" name="amount" type="number" inputmode="numeric" min="1" max="'+bal+'" value="'+bal+'">','span2')
+    +'</div>'+FOOT('تسجيل الدفعة')+'</form>');
+}
+function submitCollect(f){
+  const pid=+f.dataset.pid,vid=+f.dataset.vid||0;
+  const targets=unpaidFor(pid,vid);
+  const bal=sum(targets.map(v=>({d:v.fee-v.paid})),'d');
+  const amt=Number(new FormData(f).get('amount'));
+  if(!(amt>0))return ferr(f,'اكتب مبلغًا أكبر من صفر.');
+  if(amt>bal)return ferr(f,'المبلغ أكبر من المتبقي ('+num(bal)+' ج.م).');
+  let rest=amt;
+  targets.forEach(v=>{const x=Math.min(rest,v.fee-v.paid);if(x>0){addPayment(v,x,TODAY);rest-=x;}});
+  closeModal();toast('تم تسجيل دفعة '+num(amt)+' ج.م');render();
+}
+
+function openExpenseForm(){
+  openModal('تسجيل مصروف',
+    '<form data-form="expense" novalidate><div class="fgrid">'
+    +fld('x-label','البند','<input id="x-label" name="label" autocomplete="off">','span2')
+    +fld('x-amt','المبلغ (ج.م)','<input id="x-amt" name="amount" type="number" inputmode="numeric" min="1">')
+    +fld('x-date','التاريخ','<input id="x-date" name="date" type="date" max="'+TODAY+'" value="'+TODAY+'">')
+    +'</div>'+FOOT('حفظ المصروف')+'</form>');
+}
+function submitExpense(f){
+  const d=Object.fromEntries(new FormData(f)),amt=Number(d.amount);
+  if(!(d.label||'').trim())return ferr(f,'اكتب بند المصروف.');
+  if(d.amount===''||!(amt>0))return ferr(f,'اكتب مبلغًا أكبر من صفر.');
+  if(!d.date||d.date>TODAY)return ferr(f,'تاريخ المصروف غير صحيح.');
+  addExpense(d.date,d.label.trim(),amt);
+  closeModal();toast('تم تسجيل المصروف');render();
+}
+
+/* ---------- events ---------- */
+const FORMS={patient:submitPatient,visit:submitVisit,appt:submitAppt,collect:submitCollect,expense:submitExpense};
+document.addEventListener('click',e=>{
+  if(e.target===modal){closeModal();return;}
+  const t=e.target.closest('[data-action]');if(!t)return;
+  const a=t.dataset.action,id=+t.dataset.id||0;
+  switch(a){
+    case 'go':go(t.dataset.to);break;
+    case 'close':closeModal();break;
+    case 'open-patient':go('patient-'+id);break;
+    case 'new-patient':openPatientForm();break;
+    case 'edit-patient':openPatientForm(pat(id));break;
+    case 'new-visit':openVisitForm(id);break;
+    case 'appt-visit':{const ap=appt(id);if(ap)openVisitForm(ap.pid,ap.id);break;}
+    case 'new-appt':openApptForm({pid:+t.dataset.pid||0,date:t.dataset.date,time:t.dataset.time});break;
+    case 'appt-arrive':setAppt(id,'waiting','تم تسجيل الوصول');break;
+    case 'appt-cancel':setAppt(id,'cancelled','تم إلغاء الحجز');break;
+    case 'appt-restore':restoreAppt(id);break;
+    case 'pick-day':ui.day=t.dataset.date;render();break;
+    case 'collect':openCollect(+t.dataset.pid,+t.dataset.vid||0);break;
+    case 'new-expense':openExpenseForm();break;
+    case 'pfilter':ui.pf=t.dataset.f;ui.pLimit=30;render();break;
+    case 'more-patients':ui.pLimit+=30;fillPatients();break;
+    case 'invfilter':ui.inv=t.dataset.f;ui.invLimit=15;render();break;
+    case 'more-inv':ui.invLimit+=15;render();break;
+  }
+});
+document.addEventListener('submit',e=>{
+  const f=e.target.closest('form[data-form]');if(!f)return;
+  e.preventDefault();const h=FORMS[f.dataset.form];if(h)h(f);
+});
+document.addEventListener('change',e=>{
+  if(e.target.id==='f-type'){const fee=FEES[e.target.value]||0;$('#f-fee').value=fee;$('#f-paid').value=fee;}
+  if(e.target.id==='a-date'){$('#a-time').innerHTML=slotOptions(e.target.value);}
+});
+document.addEventListener('input',e=>{if(e.target.id==='q'){ui.q=e.target.value;ui.pLimit=30;fillPatients();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!modal.hidden)closeModal();});
+window.addEventListener('hashchange',()=>{const r=location.hash.slice(1);if(validRoute(r)&&r!==ui.route){ui.route=r;render();}});
+
+const h0=(location.hash||'').slice(1);
+ui.route=validRoute(h0)?h0:'today';
+render();
+})();
+</script>
+
+</body></html>
